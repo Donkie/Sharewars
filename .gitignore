@@ -5,6 +5,7 @@
 Library/
 obj/
 Temp
+*.suo
 *.csproj
 *.unityproj
 *.pidb
