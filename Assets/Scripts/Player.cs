@@ -2,32 +2,25 @@ using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour {  
-      
     public float moveSpeed = 5f;
-	
-	public static float distanceTraveled;
-	public float acceleration;
-	public Vector3 jumpVelocity;
-	private bool touchingPlatform;
+    public float jumpStrength = 7f;
 
     void Start()
     {
         rigidbody.freezeRotation = true;
-        rigidbody.drag = 4.0f;
     }
 
+    private bool jumpAllowed = false;
     void Update()
 	{  
 		
-		//transform.rotation = Quaternion.AngleAxis (0, Vector3.up);
-		
-		if (touchingPlatform & Input.GetButtonDown ("Jump"))
+		//transform.rotation = Quaternion.AngleAxis (0, Vector3.up); // Shouldn't need this since we've frozen the rotation
+
+        if (jumpAllowed && rigidbody.velocity.y < 0.01 && Input.GetButtonDown("Jump"))
 		{
-			rigidbody.AddForce(jumpVelocity, ForceMode.VelocityChange);
-			touchingPlatform = false;
+            jumpAllowed = false;
+			rigidbody.AddForce(new Vector3(0,jumpStrength,0), ForceMode.VelocityChange);
 		}
-		distanceTraveled = transform.localPosition.x;
-		
     }
 	
 	void FixedUpdate()
@@ -39,21 +32,10 @@ public class Player : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.z = 0;
         transform.position = pos;
+	}
 
-		if (touchingPlatform)
-		{
-			rigidbody.AddForce(acceleration, 0f, 0f, ForceMode.Acceleration);
-		}
-	}
-	
-	void OnCollisionEnter()
-	{
-		touchingPlatform = true;
-	}
-	
-	void OnCollisionExit()
-	{
-		touchingPlatform = false;
-	}
-	
+    void OnCollisionEnter()
+    {
+        jumpAllowed = true;
+    }
 }  
