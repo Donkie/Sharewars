@@ -3,10 +3,13 @@
 
 .DS_Store
 Library/
+obj/
 Temp
 *.csproj
+*.unityproj
 *.pidb
 *.sln
+*.userprefs
 build
 
 ############

@@ -41,12 +41,10 @@ public class Gun : MonoBehaviour {
 
 
 		if (AmmoInCurrentClip > MaxClipSize)
-
-		AmmoInCurrentClip = MaxClipSize;
+			AmmoInCurrentClip = MaxClipSize;
 
 		if (ExtraAmmo > MaxCarryingAmmo)
-
-		ExtraAmmo = MaxCarryingAmmo;
+			ExtraAmmo = MaxCarryingAmmo;
 
 		if (MaxClipSize < 0)
 		{
