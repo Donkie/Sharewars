@@ -10,6 +10,8 @@ public class Gun : MonoBehaviour {
 	private bool AllowFire = false;
 	public double FireRate = 0.1;
 	
+	public GameObject GunSound;
+	
 	// Gun Specs
 	public float MaxClipSize = 32;
 	public float AmmoInCurrentClip = 32;
@@ -104,12 +106,11 @@ public class Gun : MonoBehaviour {
 	{
         AllowFire = false;
         	
-			if (Bullet)
-			{
-				AmmoInCurrentClip -= 1;
-				Instantiate(Bullet,BulletSpawn.transform.position,BulletSpawn.transform.rotation);
-				Bullet.rigidbody.AddForce(transform.forward * Force);
-			}
+		if (Bullet)
+		{
+			AmmoInCurrentClip -= 1;
+			Instantiate(Bullet,BulletSpawn.transform.position,BulletSpawn.transform.rotation);
+			Instantiate(GunSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
+		}
 	}
-	
 }

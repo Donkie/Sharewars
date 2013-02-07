@@ -13,14 +13,14 @@ public class Bullet : MonoBehaviour
 	{
 		RaycastHit Hit;
 	
-		if (Physics.Raycast(transform.position, transform.forward,out Hit, Range))
+		if (Physics.Raycast(transform.position, transform.up, out Hit, Range))
 		{
 	
 			if (HitParticle)
 			{
-				Instantiate(HitParticle, Hit.point + (Hit.normal * HitParticleSpacing), Quaternion.LookRotation(Hit.normal));
+				Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
 			}
 		}
-		Destroy(gameObject);
+		Debug.DrawRay (transform.position, Hit.point);
 	}
 }
