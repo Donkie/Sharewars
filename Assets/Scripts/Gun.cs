@@ -20,6 +20,7 @@ public class Gun : MonoBehaviour {
 	public GameObject Bullet;
 	public GameObject BulletSpawn;
 	public GameObject BulletSound;
+	public float Force = 2000f;
 
 	//Reloads
 	bool  Reloading = false;
@@ -107,6 +108,7 @@ public class Gun : MonoBehaviour {
 			{
 				AmmoInCurrentClip -= 1;
 				Instantiate(Bullet,BulletSpawn.transform.position,BulletSpawn.transform.rotation);
+				Bullet.rigidbody.AddForce(transform.forward * Force);
 			}
 	}
 	

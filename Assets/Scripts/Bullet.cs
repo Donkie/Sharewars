@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour 
 {
-	float Range = 10000;
+	float Range = 10000f;
 	float HitParticleSpacing = 0.001f;
 	
 	public GameObject HitParticle;
