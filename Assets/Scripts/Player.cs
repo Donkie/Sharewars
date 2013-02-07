@@ -1,21 +1,57 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {  
     public float moveSpeed = 5f;
     public float jumpStrength = 7f;
 
+    #region Ammocode
+    public Dictionary<string, int> ammo = new Dictionary<string, int>();
+    public int TakeAmmo(string type, int amount)
+    {
+        if (!ammo.ContainsKey(type))
+            return 0;
+
+        int ammotaken = System.Math.Min(GetAmmo(type), amount);
+        ammo[type] = GetAmmo(type) - ammotaken;
+
+        return ammotaken;
+    }
+    public int GetAmmo(string type)
+    {
+        if (!ammo.ContainsKey(type))
+            return 0;
+
+        return ammo[type];
+    }
+    public void AddAmmo(string type, int amount)
+    {
+        if (ammo.ContainsKey(type))
+        {
+            ammo[type] = GetAmmo(type) + amount;
+            return;
+        }
+        ammo.Add(type, GetAmmo(type) + amount);
+    }
+    #endregion
+
     void Start()
     {
-        rigidbody.freezeRotation = true;
+        AddAmmo("500mm", 128);
+    }
+
+    public void CalcCamera()
+    {
+        Transform trans = Camera.main.transform;
+        trans.position = transform.position + transform.forward * -5 + transform.up * 2;
+
+        trans.LookAt(transform);
     }
 
     private bool jumpAllowed = false;
     void Update()
-	{  
-		
-		//transform.rotation = Quaternion.AngleAxis (0, Vector3.up); // Shouldn't need this since we've frozen the rotation
-
+	{
+        CalcCamera();
         if (jumpAllowed && rigidbody.velocity.y < 0.01 && Input.GetButtonDown("Jump"))
 		{
             jumpAllowed = false;
