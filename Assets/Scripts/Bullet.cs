@@ -21,6 +21,8 @@ public class Bullet : MonoBehaviour
 				Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
 			}
 		}
+		
+		Destroy(gameObject);
 		Debug.DrawRay (transform.position, Hit.point);
 	}
 }
