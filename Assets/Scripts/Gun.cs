@@ -54,13 +54,32 @@ public class Gun : MonoBehaviour {
         Vector3 worldpos = owner.transform.position + (new Vector3(Mathf.Cos(angle)*1, Mathf.Sin(angle)*1, 0));
         transform.position = worldpos;
 	}
-	
+
+    /*
+     * Called when firebutton is being held down
+     */
+    void FireDown()
+    {
+        if (Clip > 0)
+            DoFire();
+    }
+    /*
+     * Called when the firebutton has been clicked
+     */
+    void FireClick()
+    {
+        if (Clip == 0)
+            Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward)); //wat
+    }
+
+    private bool isClicked = false;
 	void LateUpdate()
 	{
         if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize && owner.GetAmmo(Ammotype) > 0)
         {
             Reloading = true;
-			Instantiate(ReloadSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
+            Object obj = Instantiate(ReloadSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
+            
         }
         if (Reloading)
         {
@@ -89,10 +108,14 @@ public class Gun : MonoBehaviour {
 		{
             if (Input.GetButton("Fire1"))
             {
-                if(Clip > 0)
-                    DoFire();
-                else
-                    Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward)); //wat
+                FireDown();
+                if (!isClicked)
+                    FireClick();
+                isClicked = true;
+            }
+            else
+            {
+                isClicked = false;
             }
 		}
 		
