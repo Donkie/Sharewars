@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour 
 {
+	
 	float Range = 10000f;
-	float HitParticleSpacing = 0.001f;
 	
 	public GameObject HitParticle;
-	
+	public GameObject HitSound;
 	
 	void  Update ()
 	{
@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
 			if (HitParticle)
 			{
 				Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
+				Instantiate(HitSound, Hit.point, Quaternion.LookRotation(transform.forward));
 			}
 		}
 		

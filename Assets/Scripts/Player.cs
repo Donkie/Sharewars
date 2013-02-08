@@ -4,6 +4,11 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {  
     public float moveSpeed = 5f;
     public float jumpStrength = 7f;
+	
+	// Health & Dmg
+	public float MaxHealth = 100;
+	public float CurHealth = 100;
+	public float Damage = 50;
 
     #region Ammocode
     public Dictionary<string, int> ammo = new Dictionary<string, int>();
@@ -68,10 +73,11 @@ public class Player : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.z = 0;
         transform.position = pos;
+		
 	}
 
     void OnCollisionEnter()
     {
         jumpAllowed = true;
     }
-}  
+}

@@ -10,6 +10,8 @@ public class Gun : MonoBehaviour {
 	public double FireRate = 0.1;
 	
 	public GameObject GunSound;
+	public GameObject ReloadSound;
+	public GameObject ClickSound;
 	
 	// Gun Specs
     public string Ammotype = "500mm";
@@ -34,8 +36,6 @@ public class Gun : MonoBehaviour {
 	//  Bullet
 	public GameObject Bullet;
 	public GameObject BulletSpawn;
-	public GameObject BulletSound;
-	public float Force = 2000f;
 
     void Start()
     {
@@ -60,6 +60,7 @@ public class Gun : MonoBehaviour {
         if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize)
         {
             Reloading = true;
+			Instantiate(ReloadSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
         }
         if (Reloading)
         {
@@ -72,8 +73,8 @@ public class Gun : MonoBehaviour {
                 if (am == 0)
                 {
                     //No ammo left on player
-                    //Click sound, whatever
-                }
+					Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward)); //wat
+				}
                 else
                 {
                     Clip = am;
