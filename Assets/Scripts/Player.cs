@@ -1,47 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour {  
-    public float moveSpeed = 5f;
-    public float jumpStrength = 7f;
-	
-	// Health & Dmg
-	public float MaxHealth = 100;
-	public float CurHealth = 100;
-	public float Damage = 50;
-
-    #region Ammocode
-    public Dictionary<string, int> ammo = new Dictionary<string, int>();
-    public int TakeAmmo(string type, int amount)
+public class Player : Human {  
+    new void Start()
     {
-        if (!ammo.ContainsKey(type))
-            return 0;
-
-        int ammotaken = System.Math.Min(GetAmmo(type), amount);
-        ammo[type] = GetAmmo(type) - ammotaken;
-
-        return ammotaken;
-    }
-    public int GetAmmo(string type)
-    {
-        if (!ammo.ContainsKey(type))
-            return 0;
-
-        return ammo[type];
-    }
-    public void AddAmmo(string type, int amount)
-    {
-        if (ammo.ContainsKey(type))
-        {
-            ammo[type] = GetAmmo(type) + amount;
-            return;
-        }
-        ammo.Add(type, GetAmmo(type) + amount);
-    }
-    #endregion
-
-    void Start()
-    {
+        base.Start();
         AddAmmo("500mm", 128);
     }
 
@@ -53,18 +16,16 @@ public class Player : MonoBehaviour {
         trans.LookAt(transform);
     }
 
-    private bool jumpAllowed = false;
-    void Update()
-	{
+    new void Update()
+    {
         CalcCamera();
-        if (jumpAllowed && rigidbody.velocity.y < 0.01 && Input.GetButtonDown("Jump"))
-		{
-            jumpAllowed = false;
-			rigidbody.AddForce(new Vector3(0,jumpStrength,0), ForceMode.VelocityChange);
-		}
+        base.Update();
+
+        if (Input.GetButtonDown("Jump"))
+            Jump();
     }
-	
-	void FixedUpdate()
+
+    void FixedUpdate()
     {
         float movement = Input.GetAxis("Horizontal") * moveSpeed;
         movement *= Time.deltaTime;
@@ -73,11 +34,5 @@ public class Player : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.z = 0;
         transform.position = pos;
-		
-	}
-
-    void OnCollisionEnter()
-    {
-        jumpAllowed = true;
     }
 }

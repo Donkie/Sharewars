@@ -15,12 +15,17 @@ public class Bullet : MonoBehaviour
 	
 		if (Physics.Raycast(transform.position, transform.up, out Hit, Range))
 		{
-	
 			if (HitParticle)
 			{
 				Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
-				Instantiate(HitSound, Hit.point, Quaternion.LookRotation(transform.forward));
+				//Instantiate(HitSound, Hit.point, Quaternion.LookRotation(transform.forward));
 			}
+
+            Human hit = (Human)Hit.collider.GetComponent("Human"); // Does it work? NO IDEA!
+            if (hit != null)
+            {
+                hit.TakeDamage(10);
+            }
 		}
 		
 		Destroy(gameObject);

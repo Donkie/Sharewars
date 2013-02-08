@@ -57,7 +57,7 @@ public class Gun : MonoBehaviour {
 	
 	void LateUpdate()
 	{
-        if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize)
+        if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize && owner.GetAmmo(Ammotype) > 0)
         {
             Reloading = true;
 			Instantiate(ReloadSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
@@ -70,15 +70,8 @@ public class Gun : MonoBehaviour {
                 Reloading = false;
                 ReloadTimer = 0d;
                 int am = owner.TakeAmmo(Ammotype, MaxClipSize);
-                if (am == 0)
-                {
-                    //No ammo left on player
-					Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward)); //wat
-				}
-                else
-                {
+                if (am > 0)
                     Clip = am;
-                }
             }
         }
 
@@ -94,8 +87,13 @@ public class Gun : MonoBehaviour {
 		}
 		else
 		{
-			if(Input.GetButton("Fire1") && Clip > 0)
-			    DoFire();
+            if (Input.GetButton("Fire1"))
+            {
+                if(Clip > 0)
+                    DoFire();
+                else
+                    Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward)); //wat
+            }
 		}
 		
 	}
