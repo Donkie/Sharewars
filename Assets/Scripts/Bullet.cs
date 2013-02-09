@@ -17,8 +17,9 @@ public class Bullet : MonoBehaviour
 		{
 			if (HitParticle)
 			{
-				Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
-				//Instantiate(HitSound, Hit.point, Quaternion.LookRotation(transform.forward));
+				 Instantiate(HitParticle, Hit.point, Quaternion.LookRotation(Hit.normal));
+				Object objlol = Instantiate(HitSound, Hit.point, Quaternion.LookRotation(transform.forward));
+				Destroy (objlol, 1);
 			}
 
             Human hit = (Human)Hit.collider.GetComponent("Human"); // Does it work? NO IDEA!

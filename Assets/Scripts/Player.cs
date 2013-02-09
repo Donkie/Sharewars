@@ -8,17 +8,8 @@ public class Player : Human {
         AddAmmo("500mm", 128);
     }
 
-    public void CalcCamera()
-    {
-        Transform trans = Camera.main.transform;
-        trans.position = transform.position + transform.forward * -5 + transform.up * 2;
-
-        trans.LookAt(transform);
-    }
-
     new void Update()
     {
-        CalcCamera();
         base.Update();
 
         if (Input.GetButtonDown("Jump"))
