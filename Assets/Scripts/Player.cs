@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Player : Human {  
     new void Start()
@@ -25,5 +26,6 @@ public class Player : Human {
         Vector3 pos = transform.position;
         pos.z = 0;
         transform.position = pos;
+		
     }
 }
