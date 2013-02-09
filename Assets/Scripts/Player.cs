@@ -23,9 +23,6 @@ public class Player : Human {
         movement *= Time.deltaTime;
         transform.Translate(movement, 0.0f, 0.0f);
 
-        Vector3 pos = transform.position;
-        pos.z = 0;
-        transform.position = pos;
-		
+        ///rigidbody.AddForce(new Vector3(movement*2, 0, 0), ForceMode.Impulse);
     }
 }

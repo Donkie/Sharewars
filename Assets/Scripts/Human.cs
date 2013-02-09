@@ -21,6 +21,7 @@ public class Human : MonoBehaviour {
             m_health = Mathf.Min(maxHealth, value);
         }
     }
+    public bool Alive = true;
 
     public void TakeDamage(int amount)
     {
@@ -33,6 +34,7 @@ public class Human : MonoBehaviour {
 
     public virtual void Kill()
     {
+        Alive = false;
         Debug.Log("DED");
     }
     #endregion

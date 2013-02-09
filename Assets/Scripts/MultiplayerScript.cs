@@ -21,7 +21,7 @@ public class MultiplayerScript : MonoBehaviour {
 			{
 				if (playerName != "<NAME ME>")
 				{
-					Network.useNat = useNAT;
+					//Network.useNat = useNAT; commented out cause stupid warnings
 					Network.Connect (connectToIp, connectPort);
 					PlayerPrefs.SetString("playerName", playerName);
 				}
@@ -31,8 +31,8 @@ public class MultiplayerScript : MonoBehaviour {
 			{
 				if (playerName != "<NAME ME>")
 				{
-					Network.useNat = useNAT;
-					Network.InitializeServer(32, connectPort);
+                    //Network.useNat = useNAT; commented out cause stupid warnings
+                    //Network.InitializeServer(32, connectPort); commented out cause stupid warnings
 					
 					PlayerPrefs.SetString("playerName", playerName);
 				}

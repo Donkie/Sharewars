@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour {
 	
 	// Gun Specs
     public string Ammotype = "500mm";
-	public int MaxClipSize = 5;
+	public int MaxClipSize = 500;
     private int m_clip = 0;
     public int Clip
     {
