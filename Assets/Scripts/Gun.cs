@@ -12,7 +12,6 @@ public class Gun : MonoBehaviour {
 	public GameObject GunSound;
 	public GameObject ReloadSound;
 	public GameObject ClickSound;
-	Object obj3;
 	
 	// Gun Specs
     public string Ammotype = "500mm";
@@ -70,8 +69,9 @@ public class Gun : MonoBehaviour {
     void FireClick()
     {
         if (Clip == 0)
-            obj3 = Instantiate(ClickSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
-    		Destroy (obj3, 1);
+        {
+            Sounds.PlaySound(ClickSound, BulletSpawn.transform.position);
+        }
 	}
 
     private bool isClicked = false;
@@ -80,8 +80,7 @@ public class Gun : MonoBehaviour {
         if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize && owner.GetAmmo(Ammotype) > 0)
         {
             Reloading = true;
-            Object obj1 = Instantiate(ReloadSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
-            Destroy (obj1, 1);
+            Sounds.PlaySound(ReloadSound, BulletSpawn.transform.position);
         }
         if (Reloading)
         {
@@ -132,8 +131,7 @@ public class Gun : MonoBehaviour {
 		{
 			Clip -= 1;
 			Instantiate(Bullet,BulletSpawn.transform.position,BulletSpawn.transform.rotation);
-			Object obj2 = Instantiate(GunSound, BulletSpawn.transform.position, Quaternion.LookRotation(transform.forward));
-			Destroy (obj2, 1);
+            Sounds.PlaySound(GunSound, BulletSpawn.transform.position);
 		} 
 	}
 }
