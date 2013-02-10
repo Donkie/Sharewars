@@ -50,16 +50,13 @@ public class Gun : MonoBehaviour
         Vector3 object_pos = Camera.main.WorldToScreenPoint(owner.transform.position);
         Vector3 diff = (mouse_pos - object_pos).normalized;
         float angle = Mathf.Atan2(diff.y, diff.x);
-		
-        transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
+        float degangle = angle * Mathf.Rad2Deg;
+
+        bool flip = Mathf.Abs(degangle) > 90;
+        transform.eulerAngles = new Vector3(flip ? 180 : 0, 0, flip ? -degangle : degangle);
 
         Vector3 worldpos = owner.transform.position + (new Vector3(Mathf.Cos(angle) * 0.6f, Mathf.Sin(angle) * 0.6f, 0));
         transform.position = worldpos;
-	
-		if (angle > Mathf.PI/2)
-		{
-			transform.eulerAngles = new Vector3(0, 180, angle / Mathf.Rad2Deg);
-		}
     }
 
     /*

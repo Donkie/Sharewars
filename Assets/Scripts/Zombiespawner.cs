@@ -3,10 +3,14 @@ using System.Collections;
 
 public class Zombiespawner : MonoBehaviour
 {
+    public bool Enabled = true;
     public GameObject zombie;
     // Update is called once per frame
     void Update()
     {
+        if (!Enabled)
+            return;
+
         if (Random.value > 0.92 && GameObject.FindGameObjectsWithTag("Zombie").Length < 10)
         {
             GameObject[] Platforms = GameObject.FindGameObjectsWithTag("Platform");
