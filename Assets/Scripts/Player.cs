@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class Player : Human {  
+public class Player : Human
+{
     new void Start()
     {
         base.Start();

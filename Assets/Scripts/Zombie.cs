@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Zombie : Human {
-    void Start()
+public class Zombie : Human
+{
+    new void Start()
     {
         base.Start();
         Health = 10;

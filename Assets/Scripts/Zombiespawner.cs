@@ -20,7 +20,8 @@ public class Zombiespawner : MonoBehaviour
             float xleft = xcenter - xscale;
             float xright = xcenter + xscale;
 
-            float randx = (xright - xleft) * Random.value + xleft; // Linear interpolation with random multipler
+            //float randx = (xright - xleft) * Random.value + xleft; // Linear interpolation with random multipler
+            float randx = Mathf.Lerp(xright, xleft, Random.value); // Linear interpolation with random multipler
             Instantiate(zombie, new Vector3(randx, platform.transform.position.y + 1, 0), new Quaternion());
         }
     }

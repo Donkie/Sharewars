@@ -1,21 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviour
+{
     public Player owner;
 
-	// Donkies shit
-	private double FireTimer = 0;
-	private bool AllowFire = false;
-	public double FireRate = 0.1;
-	
-	public GameObject GunSound;
-	public GameObject ReloadSound;
-	public GameObject ClickSound;
-	
-	// Gun Specs
+    // Donkies shit
+    private double FireTimer = 0;
+    private bool AllowFire = false;
+    public double FireRate = 0.1;
+
+    public GameObject GunSound;
+    public GameObject ReloadSound;
+    public GameObject ClickSound;
+
+    // Gun Specs
     public string Ammotype = "500mm";
-	public int MaxClipSize = 500;
+    public int MaxClipSize = 500;
     private int m_clip = 0;
     public int Clip
     {
@@ -32,10 +33,10 @@ public class Gun : MonoBehaviour {
     bool Reloading = false;
     double ReloadTimer = 0d;
     public float ReloadTime = 2f;
-	
-	//  Bullet
-	public GameObject Bullet;
-	public GameObject BulletSpawn;
+
+    //  Bullet
+    public GameObject Bullet;
+    public GameObject BulletSpawn;
 
     void Start()
     {
@@ -43,17 +44,17 @@ public class Gun : MonoBehaviour {
         transform.parent = owner.transform;
     }
 
-	void Update()
-	{
-    	Vector3 mouse_pos = Input.mousePosition;
-    	Vector3 object_pos = Camera.main.WorldToScreenPoint(owner.transform.position);
-    	Vector3 diff = (mouse_pos - object_pos).normalized;
-		float angle = Mathf.Atan2(diff.y, diff.x);
+    void Update()
+    {
+        Vector3 mouse_pos = Input.mousePosition;
+        Vector3 object_pos = Camera.main.WorldToScreenPoint(owner.transform.position);
+        Vector3 diff = (mouse_pos - object_pos).normalized;
+        float angle = Mathf.Atan2(diff.y, diff.x);
         transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 
-        Vector3 worldpos = owner.transform.position + (new Vector3(Mathf.Cos(angle)*1, Mathf.Sin(angle)*1, 0));
+        Vector3 worldpos = owner.transform.position + (new Vector3(Mathf.Cos(angle) * 1, Mathf.Sin(angle) * 1, 0));
         transform.position = worldpos;
-	}
+    }
 
     /*
      * Called when firebutton is being held down
@@ -72,11 +73,11 @@ public class Gun : MonoBehaviour {
         {
             Sounds.PlaySound(ClickSound, BulletSpawn.transform.position);
         }
-	}
+    }
 
     private bool isClicked = false;
-	void LateUpdate()
-	{
+    void LateUpdate()
+    {
         if (!Reloading && Input.GetButtonDown("Reload") && Clip < MaxClipSize && owner.GetAmmo(Ammotype) > 0)
         {
             Reloading = true;
@@ -95,18 +96,18 @@ public class Gun : MonoBehaviour {
             }
         }
 
-		// Donkies shit
-		if(!AllowFire)
-		{
-			FireTimer += Time.deltaTime;
-			if(FireTimer >= FireRate)
-			{
-				FireTimer = 0;
-				AllowFire = true;
-			}
-		}
-		else
-		{
+        // Donkies shit
+        if (!AllowFire)
+        {
+            FireTimer += Time.deltaTime;
+            if (FireTimer >= FireRate)
+            {
+                FireTimer = 0;
+                AllowFire = true;
+            }
+        }
+        else
+        {
             if (Input.GetButton("Fire1"))
             {
                 FireDown();
@@ -118,20 +119,20 @@ public class Gun : MonoBehaviour {
             {
                 isClicked = false;
             }
-		}
-		
-	}
-	
-	// Donkies shit
-	public void DoFire()
-	{
+        }
+
+    }
+
+    // Donkies shit
+    public void DoFire()
+    {
         AllowFire = false;
-        	
-		if (Bullet)
-		{
-			Clip -= 1;
-			Instantiate(Bullet,BulletSpawn.transform.position,BulletSpawn.transform.rotation);
+
+        if (Bullet)
+        {
+            Clip -= 1;
+            Instantiate(Bullet, BulletSpawn.transform.position, BulletSpawn.transform.rotation);
             Sounds.PlaySound(GunSound, BulletSpawn.transform.position);
-		} 
-	}
+        }
+    }
 }

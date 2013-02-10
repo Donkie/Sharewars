@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
 				Destroy (objlol, 1);
 			}
 
-            Human hit = (Human)Hit.collider.GetComponent("Human"); // Does it work? NO IDEA!
+            Human hit = (Human)Hit.collider.GetComponent("Human");
             if (hit != null)
             {
                 hit.TakeDamage(10);

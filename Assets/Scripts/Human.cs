@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Human : MonoBehaviour {
+public class Human : MonoBehaviour
+{
 
     public float moveSpeed = 5f;
     public float jumpStrength = 7f;
