@@ -7,7 +7,7 @@ public class Zombiespawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Random.value > 0.92)
+        if (Random.value > 0.92 && GameObject.FindGameObjectsWithTag("Zombie").Length < 10)
         {
             GameObject[] Platforms = GameObject.FindGameObjectsWithTag("Platform");
 
@@ -23,6 +23,7 @@ public class Zombiespawner : MonoBehaviour
             //float randx = (xright - xleft) * Random.value + xleft; // Linear interpolation with random multipler
             float randx = Mathf.Lerp(xright, xleft, Random.value); // Linear interpolation with random multipler
             Instantiate(zombie, new Vector3(randx, platform.transform.position.y + 1, 0), new Quaternion());
+			
         }
     }
 }
