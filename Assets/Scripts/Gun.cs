@@ -4,7 +4,7 @@ using System.Collections;
 public class Gun : MonoBehaviour
 {
     public Player owner;
-
+	
     // Donkies shit
     private double FireTimer = 0;
     private bool AllowFire = false;
