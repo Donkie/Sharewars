@@ -92,4 +92,9 @@ public class Human : MonoBehaviour
     {
         jumpAllowed = true;
     }
+	
+	void OnGUI()
+	{
+		GUI.Box (new Rect(10, 10,Screen.width / 2 / (maxHealth / Health), 20), Health + "/" + maxHealth);
+	}
 }
